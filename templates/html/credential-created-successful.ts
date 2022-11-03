@@ -16,7 +16,7 @@ const HtmlCredentialCreatedSuccessful = `<!DOCTYPE html>
    </head>
 <body style="background-color: #4747c1;">
     <div style="color: white; font-size: 3.5rem; font-weight: 800; text-align: center; padding: 10rem 5rem;">
-      Tu entrada ha sido creada
+      Tu credencial ha sido creada
    </div>
    <div style="text-align: center; padding: 2rem;">
       <input 
@@ -27,7 +27,7 @@ const HtmlCredentialCreatedSuccessful = `<!DOCTYPE html>
       />
    </div>
    <div style="color: white; font-size: 1.5rem; font-weight: 700; text-align: center; padding: 5rem;">
-      Ó leer el QR de la página de tu navegador de escritorio con tu billetera para obtener tu entrada
+      Ó leer el QR de la página de tu navegador de escritorio con tu billetera para obtener tu credencial
    </div>
 
    <script>

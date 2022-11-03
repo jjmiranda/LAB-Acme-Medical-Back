@@ -26,3 +26,8 @@ scp -r templates/ jmiranda1996@20.120.91.92:/home/jmiranda1996/demo-acme-back
 scp -r utils/ jmiranda1996@20.120.91.92:/home/jmiranda1996/demo-acme-back
 
 https://kaytrust.id/share?redirect_uri=http://192.168.1.22:8001/api/verifier/share&title=ACME%20ISSUER&description=Discount%20certificate&claims=eventName&client_id=did:ev:bmM8apgHQD8cPbwNsMSJKqkYRCDYhkK55uxR9&state=1L9-q8-EwMMBS4BaAAAT
+
+
+
+===
+0xE7875EF8d4866e615af001666f7B8a40314A2d84

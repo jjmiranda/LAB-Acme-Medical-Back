@@ -3,6 +3,7 @@ import logger from "../logger";
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import EventsCredential from "../templates/events-credential";
+import MedicalCredential from "../templates/medical-credential";
 import HtmlCredentialCreatedSuccessful from "../templates/html/credential-created-successful";
 import { Credential } from '@kaytrust/ethereum';
 import { verifyData } from "../utils/credentials";
@@ -33,6 +34,38 @@ class Issuer {
             const decodedJWT: any = jwt.decode(query.access_token as string);
             const sub = decodedJWT?.sub;
             const credentialTemplate = new EventsCredential(sub);
+            const newCredential = await Credential.createFromClaims(credentialTemplate);
+            const verifyDataResult = await verifyData(newCredential.verifiableObject);
+            if (!verifyDataResult.state) { res.status(400).send('<h1>can`t created credential</h1>'); return; }
+            const newCredentialWithProof = verifyDataResult.verifiableObjectWithProof;
+            const fileName = uuid();
+            try {
+                fs.writeFileSync(process.env.NODE_PATH + `/public/${fileName}.json`, newCredentialWithProof, 'utf8');
+                logger.info(`Create credential: ${newCredentialWithProof} - ${fileName}`);
+            } catch (err) { 
+                res.status(400).send('<h1>can`t created credential</h1>'); 
+                return; 
+            }
+            this.socket.emit('shared-identity', { content: fileName, to: query.state });
+            html = HtmlCredentialCreatedSuccessful.replace('{filename}', fileName);
+            res.status(200).send(html);
+        });
+
+        this.express.get("/medical", async (req, res, next) => {
+            let html: string = '';
+            // let allClaims: any = {};
+            const { query } = req;
+            if (!query.access_token) { res.status(401).send('<h1>access_token not satisfied</h1>'); return; }
+            const decodedJWT: any = jwt.decode(query.access_token as string);
+            const sub = decodedJWT?.sub;
+            // const verifiableCredentials = decodedJWT.presentation.verifiableCredential;
+            // for (const credential of verifiableCredentials) {
+            //     for (const claim in credential.credentialSubject) {
+            //         if (claim === '@id' || claim === '@type') continue;
+            //         allClaims[claim] = credential.credentialSubject[claim];
+            //     }
+            // }
+            const credentialTemplate = new MedicalCredential(sub);
             const newCredential = await Credential.createFromClaims(credentialTemplate);
             const verifyDataResult = await verifyData(newCredential.verifiableObject);
             if (!verifyDataResult.state) { res.status(400).send('<h1>can`t created credential</h1>'); return; }
