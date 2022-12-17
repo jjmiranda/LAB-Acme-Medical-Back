@@ -12,7 +12,8 @@
   "keywords": [],
   "license": "ISC",
   "dependencies": {
-    "@kaytrust/ethereum": "^2.4.9",
+    "@kaytrust/eth-core": "^4.6.7-0",
+    "@kaytrust/ethereum": "^2.4.10-0",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
