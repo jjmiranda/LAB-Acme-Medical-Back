@@ -7,12 +7,12 @@ class MedicalCredential {
     public credentialSubject: {[key: string]: any};
     public typeCredential: Array<string>;
 
-    constructor(did: string) {
+    constructor(did: string, name: string) {
         this['@context'] = 'https://www.w3.org/2018/credentials/v1';
         this['issuer'] = process.env.ISSUER_DID as string;
         this['issuanceDate'] = this.getDateCreated();
         this.credentialSubject = {
-            name: 'John Doe',
+            name: name,
             organization: {
                 legalName: MEDICAL_INFO.legalName
             },

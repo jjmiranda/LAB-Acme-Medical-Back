@@ -58,6 +58,9 @@ class Issuer {
             if (!query.access_token) { res.status(401).send('<h1>access_token not satisfied</h1>'); return; }
             const decodedJWT: any = jwt.decode(query.access_token as string);
             const sub = decodedJWT?.sub;
+
+            logger.info(`Lo que llega del decodedJWT: ${JSON.stringify(decodedJWT)} `);
+
             // const verifiableCredentials = decodedJWT.presentation.verifiableCredential;
             // for (const credential of verifiableCredentials) {
             //     for (const claim in credential.credentialSubject) {
@@ -65,7 +68,9 @@ class Issuer {
             //         allClaims[claim] = credential.credentialSubject[claim];
             //     }
             // }
-            const credentialTemplate = new MedicalCredential(sub);
+
+            const name = decodedJWT.presentation.verifiableCredential[0].credentialSubject.name;
+            const credentialTemplate = new MedicalCredential(sub, name);
             const newCredential = await Credential.createFromClaims(credentialTemplate);
             const verifyDataResult = await verifyData(newCredential.verifiableObject);
             if (!verifyDataResult.state) { res.status(400).send('<h1>can`t created credential</h1>'); return; }
