@@ -13,6 +13,9 @@ const DIDReceivedNext = `<!DOCTYPE html>
          }
       </style>
       <title>Kaytrust</title>
+      <script> 
+         setTimeout("window.close()",3000) 
+      </script>
    </head>
 <body style="background-color: #4747c1;">
     <div style="color: white; font-size: 3.5rem; font-weight: 800; text-align: center; padding: 10rem 5rem;">
