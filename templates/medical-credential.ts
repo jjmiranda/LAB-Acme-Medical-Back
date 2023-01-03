@@ -13,6 +13,19 @@ class MedicalCredential {
         this['issuanceDate'] = this.getDateCreated();
         this.credentialSubject = {
             name: name,
+            tokenAccount: {
+                '@type': "TokenAccount",
+                // See SLIP 44: https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+                coinType: '0x8000003c',
+                // The network identifier for that particular coin type
+                chainId: '0x13881',
+                // The address of the smart contract that manages the token
+                tokenAddress: '0xE097d6B3100777DC31B34dC2c58fB524C2e76921',
+                // The type of token
+                type: 'erc20',
+                // The identifier of the account in the smart contract
+                identifier: '0x4db0da3fbc929a75d38a1aeae681f2573f605248'
+            },
             organization: {
                 legalName: MEDICAL_INFO.legalName
             },
@@ -24,7 +37,7 @@ class MedicalCredential {
             '@id': did,
             '@type': 'MedicalCredential'
         };
-        this.typeCredential = ['MedicalCredential'];
+        this.typeCredential = ['TokenCredential','MedicalCredential'];
     }
 
     getDateCreated() {
