@@ -14,7 +14,7 @@ const DIDReceivedNext = `<!DOCTYPE html>
       </style>
       <title>Kaytrust</title>
       <script> 
-         setTimeout("window.close()",3000) 
+         setTimeout("window.close()",6000);
       </script>
    </head>
 <body style="background-color: #4747c1;">
